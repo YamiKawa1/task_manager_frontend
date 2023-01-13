@@ -1,1 +1,1 @@
-export type { TaskObject } from './Task';
+export type { TaskObject, TaskCreate } from './Task';
