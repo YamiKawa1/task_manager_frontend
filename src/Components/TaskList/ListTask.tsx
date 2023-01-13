@@ -30,30 +30,30 @@ const ListTask: React.FC = () => {
     // useEffect(async () => {
     //   let res = await getTasks(baseURL)
     // }, [])
-// const chargeTask = async() => {
-//   const res = await getTasks(baseURL)
-//   console.log(res);
-  
-//     // const doneTasks:Array<TaskObject> = [] 
-//     // const archivedTasks:Array<TaskObject> = []
-//     // const restTask:Array<TaskObject> = []
+const chargeTask = async() => {
+  const res = await getTasks(baseURL)
+  console.log(res);
+    const doneTasks:Array<TaskObject> = [] 
+    const archivedTasks:Array<TaskObject> = []
+    const restTask:Array<TaskObject> = []
 
-//   //   res.forEach((task: TaskObject) => {            
-//   //     if (task.done) {
-//   //       doneTasks.push(task);
+    res.forEach((task: TaskObject) => {            
+      if (task.done) {
+        doneTasks.push(task);
 
-//   //     } else if (!task.done && task.archived) {
-//   //       archivedTasks.push(task)
+      } else if (!task.done && task.archived) {
+        archivedTasks.push(task)
         
-//   //     } else if(!task.archived && !task.done) {
-//   //       restTask.push(task)
-//   //     }
-//   //   })
-//   //   setTasks(restTask);
-//   //   setDoneTasks(doneTasks);
-//   //   setArchivedTasks(archivedTasks);
-//   // }
-  
+      } else if(!task.archived && !task.done) {
+        restTask.push(task)
+      }
+    })
+    setTasks(restTask);
+    setDoneTasks(doneTasks);
+    setArchivedTasks(archivedTasks);
+}
+
+chargeTask();
 //   res.forEach((task: TaskObject) => {            
 //     if (task.done) {
 //       setDoneTasks([...doneTasks, task]);
