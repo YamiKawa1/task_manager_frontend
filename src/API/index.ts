@@ -1,1 +1,1 @@
-export {getTasks} from './tasks'
+export { getTasks } from './tasks';
