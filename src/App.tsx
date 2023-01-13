@@ -19,7 +19,6 @@ export function App() {
 
   const loadingTask = async () => {
     const res = await getTasks();
-    console.log(res);
     const doneTasks: Array<TaskObject> = [];
     const archivedTasks: Array<TaskObject> = [];
     const restTask: Array<TaskObject> = [];
@@ -41,7 +40,7 @@ export function App() {
   return (
     <div className="App container">
       <ArchiveSwitch />
-      <CreateTaskForm />
+      <CreateTaskForm loading={loadingTask} />
       <ListTask
         tasks={tasks}
         doneTasks={doneTasks}
