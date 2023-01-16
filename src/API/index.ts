@@ -1,1 +1,8 @@
-export { getTasks, postCreateTask } from './tasks';
+export { 
+    getTasks, 
+    postCreateTask,
+    patchArchiveTask,
+    patchDoneTask,
+    getTaskById,
+    patchUpdateTask
+} from './tasks';
