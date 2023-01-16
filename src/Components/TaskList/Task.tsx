@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 import * as Icon from 'react-bootstrap-icons';
 import { patchArchiveTask, patchDoneTask, getTaskById} from '../../API'
 import { StateInfoObject } from '../../interface';
-import CreateTaskForm from './CreateTaskForm';
+import { transformDate } from '../../Helpers';
 
 interface Props {
   TaskInfo: Array<{
@@ -50,11 +50,12 @@ const Task = ({ TaskInfo, color, loading, setShow, stateInfo }: Props) => {
   const editTask: any = async (id: number) => {
     stateInfo.setEdit(true);
     const res = await getTaskById(id);
+    console.log(transformDate(res.task_date));
     
     stateInfo.setId(id);
     stateInfo.setTitle(res.title);
     stateInfo.setInfo(res.information);
-    stateInfo.setDate(res.task_date);
+    stateInfo.setDate(transformDate(res.task_date));
     stateInfo.setComplexity(res.complexity);
 
     handleShow()
@@ -98,7 +99,7 @@ const Task = ({ TaskInfo, color, loading, setShow, stateInfo }: Props) => {
             ><Icon.PencilFill size={15} />
             </Button>
               
-            <h6 className="text-start ms-2 mt-1">{task.title?.substring(0, 20)}...</h6>
+            <h6 className="text-start ms-2 mt-1">{task.title?.substring(0, 15)}...</h6>
             <p className="text-start ms-2">
               {task.information?.substring(0, 20)}...
             </p>
