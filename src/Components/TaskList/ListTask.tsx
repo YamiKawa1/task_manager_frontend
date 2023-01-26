@@ -1,6 +1,11 @@
 import React from 'react';
 import Task from './Task';
+import DoneTask from './DoneTask';
+import ArchivedTask from './ArchivedTask';
 import { TaskObject, StateInfoObject } from '../../interface';
+import {useSelector} from 'react-redux'
+import type { RootState } from '../../app/store'
+
 
 interface Props {
   tasks: Array<TaskObject>;
@@ -12,11 +17,14 @@ interface Props {
 }
 
 function ListTask({ tasks, doneTasks, archivedTasks, loading, setShow, stateInfo }: Props): JSX.Element {
+  const taskss = useSelector((state: RootState) => state.tasks.value)
+  console.log(taskss);
+  
   return (
     <div>
-      <Task TaskInfo={tasks} color="warning" loading={loading} setShow={setShow} stateInfo={stateInfo}/>
-      <Task TaskInfo={doneTasks} color="success" loading={loading} setShow={setShow} stateInfo={stateInfo}/>
-      <Task TaskInfo={archivedTasks} color="danger" loading={loading} setShow={setShow} stateInfo={stateInfo}/>
+      <Task TaskInfo={tasks} loading={loading} setShow={setShow} stateInfo={stateInfo}/>
+      <DoneTask TaskInfo={doneTasks} loading={loading} setShow={setShow} stateInfo={stateInfo}/>
+      <ArchivedTask TaskInfo={archivedTasks} loading={loading} setShow={setShow} stateInfo={stateInfo}/>
     </div>
   );
 }
