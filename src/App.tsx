@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import {useSelector} from 'react-redux'
 import './App.css';
+import type { RootState } from './app/store'
 
 import { TaskObject } from './interface';
-import { getTasks } from './API';
 
 import CreateTaskForm from './Components/TaskList/CreateTaskForm';
 import ArchiveSwitch from './Components/NavBar/ArchiveSwitch';
@@ -11,6 +12,9 @@ import { Button } from 'react-bootstrap';
 import { StateInfoObject } from './interface';
 
 export function App() {
+  const tasksState = useSelector((state: RootState) => state.tasks.value)
+  console.log('taskState', tasksState);
+  
   const [show, setShow] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(false);
   const [tasks, setTasks] = useState<Array<TaskObject>>([]);
@@ -46,12 +50,11 @@ export function App() {
   const handleShow = () => setShow(true);
 
   const loadingTask = async () => {
-    const res = await getTasks();
     const doneTasks: Array<TaskObject> = [];
     const archivedTasks: Array<TaskObject> = [];
     const restTask: Array<TaskObject> = [];
 
-    res.forEach((task: TaskObject) => {
+    tasksState.forEach((task: TaskObject) => {
       if (task.done) {
         doneTasks.push(task);
       } else if (!task.done && task.archived) {
