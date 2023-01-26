@@ -1,5 +1,3 @@
-import { render } from '@testing-library/react';
-import axios from 'axios';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import * as Icon from 'react-bootstrap-icons';
@@ -19,7 +17,6 @@ interface Props {
     created_at?: Date;
     updated_at?: Date;
   }>;
-  color: string;
   loading: any;
   setShow:any;
   stateInfo: StateInfoObject;
@@ -31,7 +28,7 @@ const getTime = (task_date?: string): string => {
   return '';
 };
 
-const Task = ({ TaskInfo, color, loading, setShow, stateInfo }: Props) => {
+const Task = ({ TaskInfo, loading, setShow, stateInfo }: Props) => {
 
   const handleShow = () => setShow(true);
 
@@ -69,7 +66,7 @@ const Task = ({ TaskInfo, color, loading, setShow, stateInfo }: Props) => {
         return (
           <li
             key={task.id}
-            className={`position-relative bg-${color} bg-opacity-10`}
+            className={`position-relative bg-warning bg-opacity-10`}
           >
             <Button
               variant="success"
