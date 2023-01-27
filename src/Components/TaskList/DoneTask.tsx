@@ -1,19 +1,15 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import * as Icon from 'react-bootstrap-icons';
-import { StateInfoObject } from '../../interface';
 import { TaskObject } from '../../interface';
 import { useDispatch } from 'react-redux';
 import { undoneTask } from '../../features/tasks/TaskSlice';
 
 interface Props {
   TaskInfo: Array<TaskObject>;
-  loading: any;
-  setShow:any;
-  stateInfo: StateInfoObject;
 }
 
-const DoneTask = ({ TaskInfo, loading, setShow, stateInfo }: Props) => {
+const DoneTask = ({ TaskInfo }: Props) => {
 
   const dispatch = useDispatch();
   return (
@@ -22,7 +18,7 @@ const DoneTask = ({ TaskInfo, loading, setShow, stateInfo }: Props) => {
         return (
           <li
             key={task.id}
-            className={`position-relative bg-success bg-opacity-10`}
+            className={`position-relative bg-success bg-opacity-50`}
           >
             <Button
               variant="success"

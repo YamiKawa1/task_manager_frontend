@@ -1,25 +1,16 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import * as Icon from 'react-bootstrap-icons';
-import { patchArchiveTask, patchDoneTask, getTaskById} from '../../API'
 import { StateInfoObject } from '../../interface';
 import { transformDate } from '../../Helpers';
+import type { RootState } from '../../app/store'
+import { TaskObject } from '../../interface';
+import { useDispatch, useSelector } from 'react-redux';
+import { doneTask, archiveTask } from '../../features/tasks/TaskSlice';
+import { setId, setComplexity, setDate, setTitle, setInfo, setShow, setEdit } from '../../features/tasks/GlobalSlice'
 
 interface Props {
-  TaskInfo: Array<{
-    id: number;
-    title?: string;
-    information?: string;
-    task_date?: string;
-    complexity?: string;
-    done: boolean;
-    archived: boolean;
-    created_at?: Date;
-    updated_at?: Date;
-  }>;
-  loading: any;
-  setShow:any;
-  stateInfo: StateInfoObject;
+  TaskInfo: Array<TaskObject>;
 }
 
 const getTime = (task_date?: string): string => {
@@ -28,37 +19,24 @@ const getTime = (task_date?: string): string => {
   return '';
 };
 
-const Task = ({ TaskInfo, loading, setShow, stateInfo }: Props) => {
+const Task = ({ TaskInfo }: Props) => {
+  const tasksState = useSelector((state: RootState) => state.tasks.value)
+  const dispatch = useDispatch()
 
-  const handleShow = () => setShow(true);
+  const handleShow = () => dispatch(setShow(true));  
 
-  const archiveTask: any = async (id: number) => {
-    const res = await patchArchiveTask(id);
-    console.log(res.message);
-    loading();
+  const editTask: any = async (id: string) => {
+    dispatch(setEdit(true));
+    let task = tasksState.find(x => x.id === id)        
+    if (task) {
+        dispatch(setId(id));
+        dispatch(setTitle(task.title));
+        dispatch(setInfo(task.information));
+        dispatch(setDate(transformDate(task.task_date)));
+        dispatch(setComplexity(task.complexity));
+      handleShow()
+    }
   };
-  
-  const doneTask: any = async (id: number) => {
-    const res = await patchDoneTask(id);
-    console.log(res.message);
-    loading();
-  };
-
-  const editTask: any = async (id: number) => {
-    stateInfo.setEdit(true);
-    const res = await getTaskById(id);
-    console.log(transformDate(res.task_date));
-    
-    stateInfo.setId(id);
-    stateInfo.setTitle(res.title);
-    stateInfo.setInfo(res.information);
-    stateInfo.setDate(transformDate(res.task_date));
-    stateInfo.setComplexity(res.complexity);
-
-    handleShow()
-  };
-
-
 
   return (
     <ul className="d-inline-flex flex-wrap">
@@ -66,12 +44,12 @@ const Task = ({ TaskInfo, loading, setShow, stateInfo }: Props) => {
         return (
           <li
             key={task.id}
-            className={`position-relative bg-warning bg-opacity-10`}
+            className={`position-relative bg-warning bg-opacity-50`}
           >
             <Button
               variant="success"
               data-key={task.id}
-              onClick={(e) => doneTask(task.id)}
+              onClick={(e) => dispatch(doneTask(task.id))}
               className={`position-absolute top-0 ${task.done ? 'end-0 m-1' : 'mt-1 ms-4'}`}
             >
               <Icon.FolderFill size={15} />
@@ -82,7 +60,7 @@ const Task = ({ TaskInfo, loading, setShow, stateInfo }: Props) => {
             : <Button
               variant="danger"
               data-key={task.id}
-              onClick={(e) => archiveTask(task.id)}
+              onClick={(e) => dispatch(archiveTask(task.id))}
               className="position-absolute top-0 end-0 m-1"
               >
                 <Icon.TrashFill size={15} />

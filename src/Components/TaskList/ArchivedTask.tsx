@@ -7,10 +7,9 @@ import { useDispatch } from 'react-redux';
 
 interface Props {
   TaskInfo: Array<TaskObject>;
-  loading: any;
 }
 
-const ArchivedTask = ({ TaskInfo, loading }: Props) => {
+const ArchivedTask = ({ TaskInfo }: Props) => {
   const dispatch = useDispatch();
 
   return (
@@ -19,7 +18,7 @@ const ArchivedTask = ({ TaskInfo, loading }: Props) => {
         return (
           <li
             key={task.id}
-            className={`position-relative bg-danger bg-opacity-10`}
+            className={`position-relative bg-danger bg-opacity-50`}
           >
             <Button
               variant="success"
@@ -28,17 +27,13 @@ const ArchivedTask = ({ TaskInfo, loading }: Props) => {
             >
               <Icon.Recycle size={15} />
             </Button>
-            
-            {task.done 
-            ? null
-            : <Button
-              variant="danger"
-              onClick={(e) => dispatch(deleteTask(task.id))}
-              className="position-absolute bottom-0 end-0 m-1"
-              >
-                <Icon.TrashFill size={15} />
-              </Button> 
-              }
+            <Button
+            variant="danger"
+            onClick={(e) => dispatch(deleteTask(task.id))}
+            className="position-absolute bottom-0 end-0 m-1"
+            >
+              <Icon.TrashFill size={15} />
+            </Button> 
             <h6 className="text-start ms-2 mt-1">{task.title?.substring(0, 15)}...</h6>
             <p className="text-start ms-2">
               {task.information?.substring(0, 20)}...
