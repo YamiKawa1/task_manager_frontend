@@ -16,7 +16,7 @@ export interface TaskEdit {
 }
 
 export interface StateInfoObject {
-  id:number
+  id:string
   setId:any
   title:string 
   setTitle:any
@@ -29,3 +29,12 @@ export interface StateInfoObject {
   edit:boolean
   setEdit:any
 }
+export interface StoreInfoObject {
+  id:string
+  title:string 
+  info:string
+  date:string
+  complexity:string
+  edit:boolean
+}
+
