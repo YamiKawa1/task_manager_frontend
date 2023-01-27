@@ -29,12 +29,14 @@ export interface StateInfoObject {
   edit:boolean
   setEdit:any
 }
-export interface StoreInfoObject {
-  id:string
-  title:string 
-  info:string
-  date:string
-  complexity:string
-  edit:boolean
+
+export interface GlobalObject {
+  id?:string
+  title?:string 
+  info?:string
+  date?:string
+  complexity?:string
+  edit?:boolean
+  show?:boolean
 }
 
