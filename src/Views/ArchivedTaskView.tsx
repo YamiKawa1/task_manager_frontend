@@ -9,8 +9,10 @@ interface Props {
 const ArchivedTaskView = ({archivedTasks}: Props) => {
   return (
 <div className='container'>
-  <div className='bg-danger bg-opacity-10'>
-    <ArchivedTask TaskInfo={archivedTasks}/>
+  <div className='row'>
+    <div className='bg-danger bg-opacity-10'>
+      <ArchivedTask TaskInfo={archivedTasks}/>
+    </div>
   </div>
 </div>
   );
