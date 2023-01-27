@@ -1,1 +1,1 @@
-export type { StateInfoObject, TaskObject, TaskCreate } from './Task';
+export type { StateInfoObject, TaskObject, TaskEdit, StoreInfoObject } from './Task';
