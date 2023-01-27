@@ -1,16 +1,14 @@
 export interface TaskObject {
-  id: number;
+  id: string;
   title?: string;
   information?: string;
   task_date?: string;
   complexity?: string;
-  done: boolean;
-  archived: boolean;
-  created_at?: Date;
-  updated_at?: Date;
+  done?: boolean;
+  archived?: boolean;
 }
 
-export interface TaskCreate {
+export interface TaskEdit {
   title?: string;
   information?: string;
   task_date?: string;
