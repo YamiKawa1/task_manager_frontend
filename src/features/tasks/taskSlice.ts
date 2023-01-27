@@ -95,7 +95,7 @@ export const TaskSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { addTask, deleteTask, restoreTask, undoneTask, doneTask, archiveTask} = TaskSlice.actions
+export const { addTask, deleteTask, restoreTask, undoneTask, doneTask, archiveTask, editTask} = TaskSlice.actions
 
 export default TaskSlice.reducer
 
