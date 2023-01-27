@@ -2,107 +2,97 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import { StateInfoObject } from '../../interface';
-import { useDispatch } from 'react-redux';
-import { addTask, editTask } from '../../features/tasks/taskSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTask, editTask } from '../../features/tasks/TaskSlice';
+import { setId, setComplexity, setDate, setTitle, setInfo, setShow, setEdit } from '../../features/tasks/GlobalSlice'
+import type { RootState } from '../../app/store'
 import uuid from 'react-uuid';
 
-
-interface Props {
-  loading: any;
-  show:boolean;
-  setShow:any;
-  stateInfo: StateInfoObject;
-}
-
-function CreateTaskForm({ loading, show, setShow, stateInfo }: Props): JSX.Element {
+function CreateTaskForm(): JSX.Element {
+  const globalState = useSelector((state: RootState) => state.global.value);
   const dispatch = useDispatch();
 
   const handleClose = () => {
-    setShow(false);
-    stateInfo.setId('');
-    stateInfo.setTitle('');
-    stateInfo.setInfo('');
-    stateInfo.setDate('');
-    stateInfo.setComplexity('');
+    dispatch(setId(''));
+    dispatch(setTitle(''));
+    dispatch(setInfo(''));
+    dispatch(setDate(''));
+    dispatch(setComplexity(''));
+    dispatch(setShow(false));
+    dispatch(setEdit(false));
   }
 
   const createTask = async (e: any) => {
-    e.preventDefault();
     const body = {
       id: uuid(),
-      title: stateInfo.title,
-      information: stateInfo.info,
-      task_date: stateInfo.date,
-      complexity: stateInfo.complexity,
+      title: globalState.title,
+      information: globalState.info,
+      task_date: globalState.date,
+      complexity: globalState.complexity,
       done: false,
       archived: false
     };
     
-    await dispatch(addTask(body))
+    dispatch(addTask(body))
     
     handleClose();
-
-    loading();
   };
 
   const changeTask = async (e: any) => {
-    e.preventDefault();
 
     const body = {
-      id: stateInfo.id,
-      title: stateInfo.title,
-      information: stateInfo.info,
-      task_date: stateInfo.date,
-      complexity: stateInfo.complexity,
+      id: globalState.id || '',
+      title: globalState.title,
+      information: globalState.info,
+      task_date: globalState.date,
+      complexity: globalState.complexity,
     };
 
-    await dispatch(editTask(body))
+    dispatch(editTask(body))
 
     handleClose();
 
-    loading();
+    // loading();
   }
-
   return (
     <div>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={globalState.show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Creating New Task</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form method="post">
             <Form.Control
-              onChange={(e) => stateInfo.setTitle(e.target.value)}
+              onChange={(e) => dispatch(setTitle(e.target.value))}
               name="title"
               type="text"
               placeholder="Title"
-              value={stateInfo.title}
+              value={globalState.title}
             />
             <br />
             <Form.Control
-              onChange={(e) => stateInfo.setInfo(e.target.value)}
+              onChange={(e) => dispatch(setInfo(e.target.value))}
               name="info"
               as="textarea"
               type="text"
               placeholder="Information"
-              value={stateInfo.info}
+              value={globalState.info}
             />
             <br />
             <Form.Label>Day to complete the task</Form.Label>
             <Form.Control
-              onChange={(e) => stateInfo.setDate(e.target.value)}
+              onChange={(e) => dispatch(setDate(e.target.value))}
               name="date"
               type="date"
               placeholder=""
-              value={stateInfo.date}
+              value={globalState.date}
             />
             <br />
             <Form.Select
-              onChange={(e) => stateInfo.setComplexity(e.target.value)}
+              onChange={(e) => dispatch(setComplexity(e.target.value))}
               name="complexity"
               aria-label="Default select example"
-              value={stateInfo.complexity}
+              value={globalState.complexity}
             >
               <option>How difficult is this task</option>
               <option value="facil">Facil</option>
@@ -111,7 +101,7 @@ function CreateTaskForm({ loading, show, setShow, stateInfo }: Props): JSX.Eleme
             </Form.Select>
             <br />
             <Button variant="primary" onClick={(e) => {
-              return stateInfo.edit ? changeTask(e) : createTask(e)
+              return globalState.edit ? changeTask(e) : createTask(e)
             }}>
               Submit
             </Button>
