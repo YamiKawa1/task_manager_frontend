@@ -3,7 +3,10 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { StateInfoObject } from '../../interface';
-import { postCreateTask, patchUpdateTask } from '../../API';
+import { useDispatch } from 'react-redux';
+import { addTask, editTask } from '../../features/tasks/taskSlice';
+import uuid from 'react-uuid';
+
 
 interface Props {
   loading: any;
@@ -13,9 +16,11 @@ interface Props {
 }
 
 function CreateTaskForm({ loading, show, setShow, stateInfo }: Props): JSX.Element {
+  const dispatch = useDispatch();
 
   const handleClose = () => {
     setShow(false);
+    stateInfo.setId('');
     stateInfo.setTitle('');
     stateInfo.setInfo('');
     stateInfo.setDate('');
@@ -25,30 +30,35 @@ function CreateTaskForm({ loading, show, setShow, stateInfo }: Props): JSX.Eleme
   const createTask = async (e: any) => {
     e.preventDefault();
     const body = {
+      id: uuid(),
       title: stateInfo.title,
       information: stateInfo.info,
       task_date: stateInfo.date,
       complexity: stateInfo.complexity,
+      done: false,
+      archived: false
     };
-    const res = await postCreateTask(body);
-    console.log(res);
+    
+    await dispatch(addTask(body))
+    
     handleClose();
 
     loading();
   };
 
-  const editTask = async (e: any) => {
+  const changeTask = async (e: any) => {
     e.preventDefault();
 
     const body = {
+      id: stateInfo.id,
       title: stateInfo.title,
       information: stateInfo.info,
       task_date: stateInfo.date,
       complexity: stateInfo.complexity,
     };
 
-    const res = await patchUpdateTask(stateInfo.id, body);
-    console.log(res);
+    await dispatch(editTask(body))
+
     handleClose();
 
     loading();
@@ -101,7 +111,7 @@ function CreateTaskForm({ loading, show, setShow, stateInfo }: Props): JSX.Eleme
             </Form.Select>
             <br />
             <Button variant="primary" onClick={(e) => {
-              return stateInfo.edit ? editTask(e) : createTask(e)
+              return stateInfo.edit ? changeTask(e) : createTask(e)
             }}>
               Submit
             </Button>
