@@ -1,9 +1,17 @@
 import React from 'react'
+import ArchivedTask from '../Components/TaskList/ArchivedTask'
+import { TaskObject } from '../interface'
 
-const ArchivedTaskView = () => {
+interface Props {
+  archivedTasks: Array<TaskObject>;
+}
+
+const ArchivedTaskView = ({archivedTasks}: Props) => {
   return (
-<div>
-
+<div className='container'>
+  <div className='bg-danger bg-opacity-10'>
+    <ArchivedTask TaskInfo={archivedTasks}/>
+  </div>
 </div>
   );
 }
