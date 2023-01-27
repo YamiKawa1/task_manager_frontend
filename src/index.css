@@ -19,6 +19,7 @@ ul {
 li {
   border-radius: 3px;
   border: solid 2px rgba(221, 222, 240, 0.5);
+  min-width: 300px;
   width: 20vw;
   min-height: 100px;
   height: auto;
