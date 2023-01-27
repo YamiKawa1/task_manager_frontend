@@ -4,7 +4,7 @@ import * as Icon from 'react-bootstrap-icons';
 import { StateInfoObject } from '../../interface';
 import { TaskObject } from '../../interface';
 import { useDispatch } from 'react-redux';
-import { undoneTask } from '../../features/tasks/taskSlice';
+import { undoneTask } from '../../features/tasks/TaskSlice';
 
 interface Props {
   TaskInfo: Array<TaskObject>;

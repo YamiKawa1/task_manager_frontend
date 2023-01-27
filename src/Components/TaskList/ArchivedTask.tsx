@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import * as Icon from 'react-bootstrap-icons';
 import { TaskObject } from '../../interface';
-import { deleteTask, restoreTask } from '../../features/tasks/taskSlice';
+import { deleteTask, restoreTask } from '../../features/tasks/TaskSlice';
 import { useDispatch } from 'react-redux';
 
 interface Props {
