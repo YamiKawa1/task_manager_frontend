@@ -23,23 +23,43 @@ export const GlobalSlice = createSlice({
   initialState,
   reducers: {
     setId: (state, action: PayloadAction<string>) => {
-      state.value.id = action.payload;
+      if (action.payload) {
+        state.value.id = action.payload;
+      } else {
+        state.value.id = '';
+      }
     },
 
-    setTitle: (state, action: PayloadAction<string>) => {
-      state.value.title = action.payload;
+    setTitle: (state, action: PayloadAction<string | undefined>) => {
+      if (action.payload) {
+        state.value.title = action.payload;
+      } else {
+        state.value.title = '';
+      }
     },
 
-    setInfo: (state, action: PayloadAction<string>) => {
-      state.value.info = action.payload;
+    setInfo: (state, action: PayloadAction<string | undefined>) => {
+      if (action.payload) {
+        state.value.info = action.payload;
+      } else {
+        state.value.info = '';
+      }
     },
 
-    setDate: (state, action: PayloadAction<string>) => {
-      state.value.date = action.payload;
+    setDate: (state, action: PayloadAction<string | undefined>) => {
+      if (action.payload) {
+        state.value.date = action.payload;
+      } else {
+        state.value.date = '';
+      }
     },
 
-    setComplexity: (state, action: PayloadAction<string>) => {
-      state.value.complexity = action.payload;
+    setComplexity: (state, action: PayloadAction<string | undefined>) => {
+      if (action.payload) {
+        state.value.complexity = action.payload;
+      } else {
+        state.value.complexity = '';
+      }
     },
 
     setEdit: (state, action: PayloadAction<boolean>) => {
