@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import {useSelector} from 'react-redux'
+import { Button } from 'react-bootstrap';
 import './App.css';
 import type { RootState } from './app/store'
-
-import { TaskObject } from './interface';
-
+import { TaskObject, StateInfoObject } from './interface';
 import CreateTaskForm from './Components/TaskList/CreateTaskForm';
-import ArchiveSwitch from './Components/NavBar/ArchiveSwitch';
 import ListTask from './Components/TaskList/ListTask';
-import { Button } from 'react-bootstrap';
-import { StateInfoObject } from './interface';
 
 export function App() {
   const tasksState = useSelector((state: RootState) => state.tasks.value)
@@ -50,6 +46,7 @@ export function App() {
   const handleShow = () => setShow(true);
 
   const loadingTask = async () => {
+    
     const doneTasks: Array<TaskObject> = [];
     const archivedTasks: Array<TaskObject> = [];
     const restTask: Array<TaskObject> = [];
@@ -70,7 +67,6 @@ export function App() {
 
   return (
     <div className="App container">
-      <ArchiveSwitch />
       <Button variant="success" onClick={handleShow}>
         Create New Task
       </Button>
