@@ -6,6 +6,8 @@ import type { RootState } from './app/store'
 import { TaskObject, StateInfoObject } from './interface';
 import CreateTaskForm from './Components/TaskList/CreateTaskForm';
 import ListTask from './Components/TaskList/ListTask';
+import ToDoDoneTasksView from './Views/ToDoDoneTasksView';
+import ArchivedTaskView from './Views/ArchivedTaskView';
 
 export function App() {
   const tasksState = useSelector((state: RootState) => state.tasks.value)
@@ -16,7 +18,7 @@ export function App() {
   const [tasks, setTasks] = useState<Array<TaskObject>>([]);
   const [doneTasks, setDoneTasks] = useState<Array<TaskObject>>([]);
   const [archivedTasks, setArchivedTasks] = useState<Array<TaskObject>>([]);
-  const [id, setId] = useState<number>(NaN);
+  const [id, setId] = useState<string>('');
   const [title, setTitle] = useState<string>('');
   const [info, setInfo] = useState<string>('');
   const [date, setDate] = useState<string>('');
@@ -85,6 +87,8 @@ export function App() {
         loading={loadingTask}
         stateInfo={stateInfo}
       />
+      <ArchivedTaskView/>
+      <ToDoDoneTasksView/>
     </div>
   );
 }
