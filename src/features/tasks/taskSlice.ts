@@ -1,18 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { TaskObject } from '../../interface'
+import { getItem } from '../../Helpers/localstorage'
 
 export interface TaskState {
   value: Array<TaskObject>
 }
 
 const initialState: TaskState = {
-  value: [
+  value: getItem('tasks') || [
     {
         id: '1',
         title: 'hola',
         information: 'in client task',
-        task_date: '28/01/2023',
+        task_date: '2023-01-28',
         complexity: 'facil',
         done: true,
         archived: false,
@@ -21,7 +22,7 @@ const initialState: TaskState = {
         id: '2',
         title: 'hola 2',
         information: 'in client task 2',
-        task_date: '28/01/2023',
+        task_date: '2023-01-28',
         complexity: 'medio',
         done: false,
         archived: true,
@@ -30,7 +31,7 @@ const initialState: TaskState = {
         id: '3',
         title: 'hola 3',
         information: 'in client task 3',
-        task_date: '28/01/2023',
+        task_date: '2023-01-28',
         complexity: 'dificil',
         done: false,
         archived: false,

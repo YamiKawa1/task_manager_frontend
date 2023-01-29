@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux'
-import { Button } from 'react-bootstrap';
 import './App.css';
 import type { RootState } from './app/store'
 import { TaskObject } from './interface';
@@ -8,7 +7,9 @@ import CreateTaskForm from './Components/TaskList/CreateTaskForm';
 import ToDoDoneTasksView from './Views/ToDoDoneTasksView';
 import ArchivedTaskView from './Views/ArchivedTaskView';
 import { setShow } from './features/tasks/GlobalSlice';
-import { getLocalTasks } from './features/tasks/TaskSlice';
+import { setItem } from './Helpers/localstorage';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from './Views/Layout';
 
 export function App() {
   const tasksState = useSelector((state: RootState) => state.tasks.value);
@@ -20,11 +21,6 @@ export function App() {
   const [archivedTasks, setArchivedTasks] = useState<Array<TaskObject>>([]);
 
   const loadingTask = async () => {
-   const items = JSON.parse(localStorage.getItem('tasks') || '');
-  if (items) {
-    dispatch(getLocalTasks(items))
-  }
-
     const doneTasks: Array<TaskObject> = [];
     const archivedTasks: Array<TaskObject> = [];
     const restTask: Array<TaskObject> = [];
@@ -45,21 +41,27 @@ export function App() {
   };
 
   useEffect(() => {
-      localStorage.setItem('tasks', JSON.stringify(tasksState));
+    setItem('tasks', tasksState)
     loadingTask();
   }, [tasksState]);
 
-  const handleShow = () => dispatch(setShow(true));
+  // const handleShow = () => dispatch(setShow(true));
 
 
   return (
     <div className="App container">
-      <Button variant="success" onClick={handleShow}>
-        Create New Task
-      </Button>
+      <Layout />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/">
+            <Route path="tododone" element={<ToDoDoneTasksView tasks={tasks} doneTasks={doneTasks} />} />
+            <Route path="archived" element={<ArchivedTaskView archivedTasks={archivedTasks} />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
       <CreateTaskForm />
-      <ToDoDoneTasksView tasks={tasks} doneTasks={doneTasks} />
-      <ArchivedTaskView archivedTasks={archivedTasks} />
+      {/* <ToDoDoneTasksView tasks={tasks} doneTasks={doneTasks} />
+      <ArchivedTaskView archivedTasks={archivedTasks} /> */}
     </div>
   );
 }

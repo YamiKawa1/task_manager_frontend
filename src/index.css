@@ -7,6 +7,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+a {
+  text-decoration: none !important;
+  color: white !important;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -19,19 +24,14 @@ ul {
 li {
   border-radius: 3px;
   border: solid 2px rgba(221, 222, 240, 0.5);
-  min-width: 300px;
-  width: 20vw;
+  min-width: 250px;
+  width: 10vw;
   min-height: 100px;
   height: auto;
-  margin: 10px;
-}
-
-button {
-  margin: 0;
-  padding: 0;
+  margin: 5px;
 }
 
 p {
-  font-size: 0.8em;
+  font-size: 1em;
 }
 

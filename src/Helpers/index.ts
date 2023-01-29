@@ -1,1 +1,1 @@
-export {transformDate} from './dateManager'
+export {transformDate, selectComplexityColor} from './dateManager'

@@ -4,6 +4,7 @@ import * as Icon from 'react-bootstrap-icons';
 import { TaskObject } from '../../interface';
 import { deleteTask, restoreTask } from '../../features/tasks/TaskSlice';
 import { useDispatch } from 'react-redux';
+import { selectComplexityColor } from '../../Helpers';
 
 interface Props {
   TaskInfo: Array<TaskObject>;
@@ -18,7 +19,7 @@ const ArchivedTask = ({ TaskInfo }: Props) => {
         return (
           <li
             key={task.id}
-            className={`position-relative bg-danger bg-opacity-50`}
+            className={`position-relative bg-secondary bg-opacity-25 border border-3 border-${selectComplexityColor(task.complexity)}`}
           >
             <Button
               variant="success"

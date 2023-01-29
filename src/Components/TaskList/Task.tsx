@@ -1,13 +1,13 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import * as Icon from 'react-bootstrap-icons';
-import { StateInfoObject } from '../../interface';
 import { transformDate } from '../../Helpers';
 import type { RootState } from '../../app/store'
 import { TaskObject } from '../../interface';
 import { useDispatch, useSelector } from 'react-redux';
 import { doneTask, archiveTask } from '../../features/tasks/TaskSlice';
 import { setId, setComplexity, setDate, setTitle, setInfo, setShow, setEdit } from '../../features/tasks/GlobalSlice'
+import { selectComplexityColor } from '../../Helpers';
 
 interface Props {
   TaskInfo: Array<TaskObject>;
@@ -39,12 +39,12 @@ const Task = ({ TaskInfo }: Props) => {
   };
 
   return (
-    <ul className="d-inline-flex flex-wrap">
+    <ul className="d-inline-flex flex-wrap position-relative">
       {TaskInfo.map((task) => {
         return (
           <li
             key={task.id}
-            className={`position-relative bg-warning bg-opacity-50`}
+            className={`position-relative bg-secondary bg-opacity-25 border border-3 border-${selectComplexityColor(task.complexity)}`}
           >
             <Button
               variant="success"
