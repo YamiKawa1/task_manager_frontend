@@ -7,16 +7,13 @@ import { useDispatch } from 'react-redux';
 import { selectComplexityColor } from '../../Helpers';
 
 interface Props {
-  TaskInfo: Array<TaskObject>;
+  task: TaskObject;
 }
 
-const ArchivedTask = ({ TaskInfo }: Props) => {
+const ArchivedTask = ({ task }: Props) => {
   const dispatch = useDispatch();
 
   return (
-    <ul className="d-inline-flex flex-wrap">
-      {TaskInfo.map((task) => {
-        return (
           <li
             key={task.id}
             className={`position-relative bg-secondary bg-opacity-25 border border-3 border-${selectComplexityColor(task.complexity)}`}
@@ -44,9 +41,6 @@ const ArchivedTask = ({ TaskInfo }: Props) => {
             </p>
           </li>
         );
-      })}
-    </ul>
-  );
 };
 
 export default ArchivedTask;
