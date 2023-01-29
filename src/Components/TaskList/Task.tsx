@@ -13,12 +13,6 @@ interface Props {
   TaskInfo: Array<TaskObject>;
 }
 
-const getTime = (task_date?: string): string => {
-  const actual = Date();
-  // console.log(task_date, actual)
-  return '';
-};
-
 const Task = ({ TaskInfo }: Props) => {
   const tasksState = useSelector((state: RootState) => state.tasks.value)
   const dispatch = useDispatch()
@@ -79,7 +73,7 @@ const Task = ({ TaskInfo }: Props) => {
               {task.information?.substring(0, 20)}...
             </p>
             <p className="text-start text-muted ms-2">
-              falta: {getTime(task.task_date)}
+              finish before: {task.task_date}
             </p>
           </li>
         );
