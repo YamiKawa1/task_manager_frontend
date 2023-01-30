@@ -14,7 +14,8 @@ const initialState: GlobalState = {
     date: '',
     complexity: '',
     edit: false,
-    show: false
+    show: false,
+    showInfo: false
   }
 }
 
@@ -69,10 +70,14 @@ export const GlobalSlice = createSlice({
     setShow: (state, action: PayloadAction<boolean>) => {
       state.value.show = action.payload;
     },
+
+    setShowInfo: (state, action: PayloadAction<boolean>) => {
+      state.value.showInfo = action.payload;
+    },
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { setId, setTitle, setInfo, setDate, setComplexity, setEdit, setShow } = GlobalSlice.actions
+export const { setId, setTitle, setInfo, setDate, setComplexity, setEdit, setShow, setShowInfo } = GlobalSlice.actions
 
 export default GlobalSlice.reducer
