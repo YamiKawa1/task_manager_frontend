@@ -14,7 +14,6 @@ import Layout from './Views/Layout';
 export function App() {
   const tasksState = useSelector((state: RootState) => state.tasks.value);
   const dispatch = useDispatch();  
-  console.log('tasksState', tasksState);
 
   const [tasks, setTasks] = useState<Array<TaskObject>>([]);
   const [doneTasks, setDoneTasks] = useState<Array<TaskObject>>([]);
@@ -54,7 +53,7 @@ export function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/">
-            <Route path="tododone" element={<ToDoDoneTasksView tasks={tasks} doneTasks={doneTasks} />} />
+            <Route path="tododone" element={<ToDoDoneTasksView tasks={tasks} setTasks={setTasks} doneTasks={doneTasks} setDoneTasks={setDoneTasks} />} />
             <Route path="archived" element={<ArchivedTaskView archivedTasks={archivedTasks} />} />
           </Route>
         </Routes>
