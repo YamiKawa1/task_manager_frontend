@@ -38,5 +38,6 @@ export interface GlobalObject {
   complexity?:string
   edit?:boolean
   show?:boolean
+  showInfo:boolean
 }
 
