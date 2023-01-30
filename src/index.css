@@ -17,19 +17,29 @@ code {
     monospace;
 }
 
-ul {
-  list-style:none
-}
-
-li {
+.card-self {
+  list-style:none;
   border-radius: 3px;
   border: solid 2px rgba(221, 222, 240, 0.5);
   min-width: 250px;
   width: 10vw;
   min-height: 100px;
   height: auto;
-  margin: 5px;
+  margin: 10px;
   cursor: pointer;
+}
+
+.move-button {
+  background-color: black;
+  opacity: 0.2;
+  height: 100%;
+  width: 15px;
+  left: -15px;
+}
+
+.move-button:hover {
+  opacity: 0.5;
+  transition: 0.5s;
 }
 
 p {
